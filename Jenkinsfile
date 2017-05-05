@@ -1,5 +1,5 @@
 node {
-    echo 'Scripted pipeline'
+    echo 'Scripted pipeline 2'
     stage('Build') {
       echo 'Building...'
     }

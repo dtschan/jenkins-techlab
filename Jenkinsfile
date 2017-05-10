@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label env.JOB_NAME.split('/')[0] }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
         timeout(time: 10, unit: 'MINUTES')
@@ -9,10 +9,14 @@ pipeline {
         pollSCM('H/5 * * * *')
         cron('@midnight')
     }
+    tools {
+        jdk 'jdk8'
+        maven 'maven35'     
+    }
     stages {
-        stage('Greeting') {
+        stage('Build') {
             steps {
-                echo 'Hello, World!'
+                sh 'mvn --version'
             }
         }
     }
